@@ -5,7 +5,7 @@
 ## First usage
 After the cloning the repo
 
-1. Create a virtual enveronment
+1. Create a virtual environment
 2. Install the dependencies with `pip3 install -r requirements.txt`
 3. Create a .env file at the root of the project and add a variable 
     named TOKEN={your-bot-token}
