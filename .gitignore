@@ -9,3 +9,5 @@ lib
 
 # database
 sqlite3.db
+
+citations.json
