@@ -1,0 +1,13 @@
+# cache
+__pycache__
+pyvenv.cfg
+
+# Environment variables
+.env
+bin
+lib
+
+# database
+sqlite3.db
+
+citations.json

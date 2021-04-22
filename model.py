@@ -6,7 +6,6 @@ Base = declarative_base()
 
 db = create_engine('sqlite:///sqlite3.db')
 
-
 class Suggestion(Base):
     __tablename__ = "suggestion"
     id = Column(Integer(), primary_key=True)
