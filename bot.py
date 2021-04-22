@@ -58,7 +58,7 @@ class MyClient(discord.Client):
         greeting = f"""
 Salut *{member.name}*,
 
-Je suis ***{client.user.name}*** et bienvenue sur ***le serveur Discord de l'Ascension***!
+Je suis ***{self.user.name}*** et bienvenue sur ***le serveur Discord de l'Ascension***!
 
 Ce serveur est dédiée aux personnes noirs de region parisienne afin de renforcer notre communauté, apprendre sur notre histoire, promouvoir nos business, s'inspirer et s'amuser.
 
