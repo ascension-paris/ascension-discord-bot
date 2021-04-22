@@ -45,15 +45,20 @@ def get_quote():
 def parse_citations():
     citations = []
     textFile = open("citations.txt", "r")
-    jsonQuotes = open("citations.json", "w")
 
     for quote in textFile:
-        citation, author = quote.split(" - ")
+        citation, author = quote.split(" | ")
         data = {}
         data["c"] = citation.strip()
         data["a"] = author.strip().rstrip("\n")
         citations.append(data)
     textFile.close()
+    return citations
+
+
+def generate_citations_json():
+    citations = parse_citations()
+    jsonQuotes = open("citations.json", "w")
     json.dump(citations, jsonQuotes, ensure_ascii=False)
     jsonQuotes.close()
 
@@ -121,6 +126,6 @@ class MyClient(discord.Client):
         await message.channel.send(fmt.format(message))
 
 
-parse_citations()
+generate_citations_json()
 client = MyClient()
 client.run(TOKEN)
