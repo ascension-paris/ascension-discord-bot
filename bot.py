@@ -3,11 +3,9 @@ import random
 import requests
 import json
 import asyncio
+import discord
 
 from sqlalchemy.orm import Session, sessionmaker
-
-# In a .env file create a variable where you store the discord bot token
-import discord
 from dotenv import load_dotenv
 
 from model import db, Suggestion
@@ -17,7 +15,6 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 Session = sessionmaker(bind=db)
-
 session = Session()
 
 
