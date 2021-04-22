@@ -18,14 +18,6 @@ Session = sessionmaker(bind=db)
 session = Session()
 
 
-sad_words = ["triste", "déprimer", "mécontent", "colère", "miserable"]
-starter_encoragements = [
-    "Courage!",
-    "Tiens le coup",
-    "La vie est faite de haut et de bas"
-]
-
-
 def update_suggestion(improve):
     if len(improve) > 0:
         session.add(Suggestion(content=improve))
@@ -61,14 +53,25 @@ def generate_citations_json():
 
 
 class MyClient(discord.Client):
-    greeting_words = ['bonjour', 'salut', 'hello']
 
     async def on_member_join(self, member):
+        greeting = f"""
+Salut *{member.name}*,
+
+Je suis ***{client.user.name}*** et bienvenue sur ***le serveur Discord de l'Ascension***!
+
+Ce serveur est dédiée aux personnes noirs de region parisienne afin de renforcer notre communauté, apprendre sur notre histoire, promouvoir nos business, s'inspirer et s'amuser.
+
+Tu trouveras des channels dédiés a l'apprentissage des langues, un club de lecture, une conversation privé pour femme/homme. Pour y acceder, va dans le channel <#797855506495438868> et appuis sur les icones correspondants aux roles que tu souhaites avoir.
+
+Nous avons aussi tous les vendredis soir des debats sur des sujets qui nous concernent.
+
+Pour toute questions ou suggestions d'amélioration n'hesite pas a faire appel aux admins.
+
+A plus tard sur le serveur! :wave_tone5:
+        """
         await member.create_dm()
-        await member.dm_channel.send(
-            f'Salut {member.name}, \nje suis {client.user.name} bienvenue sur Ascension'
-            f'Pense à choisir ton rôle et '
-        )
+        await member.dm_channel.send(greeting)
 
     async def on_ready(self):
         print(
@@ -82,22 +85,6 @@ class MyClient(discord.Client):
 
         msg = message.content
 
-        if msg.startswith('$Salut'):
-            await message.reply('Hello!', mention_author=True)
-
-        if any(word in message.content for word in self.greeting_words):
-            await message.reply('Bonjour!', mention_author=True)
-
-        if msg.startswith('!editme'):
-            msg = await message.channel.send('10')
-            await asyncio.sleep(3.0)
-            await msg.edit(content='40')
-
-        if msg.startswith('!deletme'):
-            msg = await message.channel.send('I will delete myself now...')
-            await msg.delete()
-            await message.channel.send('Goodbye in 10 seconds...', delete_after=10.0)
-
         if msg.startswith('$new'):
             improve = msg.split('$new ', 1)[1]
             update_suggestion(improve)
@@ -107,20 +94,9 @@ class MyClient(discord.Client):
             suggestion = session.query(Suggestion.id, Suggestion.content).all()
             await message.channel.send(suggestion)
 
-        if any(word in msg for word in sad_words):
-            await message.channel.send(random.choice(starter_encoragements))
-
         if msg.startswith('$inspire'):
             quote = get_quote()
             await message.channel.send(quote)
-
-    async def on_message_edit(self, before, after):
-        fmt = '**{0.author}** edited their message:\n{0.content} -> {1.content}'
-        await before.channel.send(fmt.format(before, after))
-
-    async def on_message_delete(self, message):
-        fmt = '{0.author} has deleted the message: {0.content}'
-        await message.channel.send(fmt.format(message))
 
 
 generate_citations_json()
