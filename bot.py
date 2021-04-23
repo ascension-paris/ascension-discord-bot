@@ -117,8 +117,8 @@ A plus tard sur le serveur! :wave_tone5:
 
     @daily_inspiration.before_loop
     async def before_inspiration(self):
-        hour = 2
-        minute = 20
+        hour = 7
+        minute = 0
         await self.wait_until_ready()
         now = datetime.now()
         future = datetime(now.year, now.month, now.day, hour, minute)
