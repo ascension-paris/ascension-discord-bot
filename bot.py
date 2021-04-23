@@ -15,7 +15,7 @@ from model import db, Suggestion
 
 load_dotenv()
 
-TOKEN = 'ODE5ODY1MDc2NjM4ODEwMTQy.YEs02g.cAZIs0tsgb5nMnC8ZX2-cGIL1Dw'
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 Session = sessionmaker(bind=db)
 session = Session()
