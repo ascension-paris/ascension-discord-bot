@@ -3,6 +3,7 @@ import random
 import requests
 import json
 import asyncio
+import pytz
 import discord
 from discord.ext import tasks
 from datetime import datetime, timedelta
@@ -49,7 +50,6 @@ def generate_citations_json():
     citations = parse_citations()
     with open("citations.json", "w") as jsonQuotes:
         json.dump(citations, jsonQuotes, ensure_ascii=False)
-        
 
 
 class MyClient(discord.Client):
@@ -82,7 +82,6 @@ A plus tard sur le serveur! :wave_tone5:
         await member.create_dm()
         await member.dm_channel.send(greeting)
 
-
     async def on_message(self, message):
         if message.author.id == self.user.id:
             return
@@ -104,29 +103,29 @@ A plus tard sur le serveur! :wave_tone5:
 
     @tasks.loop(hours=24)
     async def daily_inspiration(self):
-        ## if you have the channel id uncomment the two lines above and provide it 
+        # if you have the channel id uncomment the two lines above and provide it
 
         # channel_id = the_channel_id
         # channel = self.get_channel(channel_id)
 
-        ## or just provide the channel name on the line above
-        channel = discord.utils.get(self.guilds[0].channels, name='channel_name') 
+        # or just provide the channel name on the line above
+        channel = discord.utils.get(
+            self.guilds[0].channels, name='channel_name')
         quote = get_quote()
 
-        await channel.send(f'\t\t***Quote of the day***\n\n' +  quote)
+        await channel.send(f'\t\t***Quote of the day***\n\n' + quote)
 
     @daily_inspiration.before_loop
     async def before_inspiration(self):
         hour = 7
         minute = 0
         await self.wait_until_ready()
-        now = datetime.now()
-        future = datetime(now.year, now.month, now.day, hour, minute)
+        now = datetime.now(tz=pytz.timezone('Europe/Paris'))
+        future = datetime(now.year, now.month, now.day, hour,
+                          minute, tzinfo=pytz.timezone('Europe/Paris'))
         if now.hour >= hour and now.minute > minute:
             future += timedelta(days=1)
         await asyncio.sleep((future-now).seconds)
-
-
 
 
 generate_citations_json()
