@@ -6,6 +6,7 @@ pyvenv.cfg
 .env
 bin
 lib
+include
 
 # database
 sqlite3.db
