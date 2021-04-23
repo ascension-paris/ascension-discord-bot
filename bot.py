@@ -71,7 +71,7 @@ Je suis ***{self.user.name}*** et bienvenue sur ***le serveur Discord de l'Ascen
 
 Ce serveur est dédiée aux personnes noirs de region parisienne afin de renforcer notre communauté, apprendre sur notre histoire, promouvoir nos business, s'inspirer et s'amuser.
 
-Tu trouveras des channels dédiés a l'apprentissage des langues, un club de lecture, une conversation privé pour femme/homme. Pour y acceder, va dans le channel <#797855506495438868> et appuis sur les icones correspondants aux roles que tu souhaites avoir.
+Tu trouveras des channels dédiés a l'apprentissage des langues, un club de lecture, une conversation privé pour femme/homme. Pour y acceder, va dans le channel <#1234> et appuis sur les icones correspondants aux roles que tu souhaites avoir.
 
 Nous avons aussi tous les vendredis soir des debats sur des sujets qui nous concernent.
 
