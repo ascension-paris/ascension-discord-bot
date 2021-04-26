@@ -2,7 +2,6 @@ import os
 import requests
 import json
 import asyncio
-import pytz
 import discord
 import random
 from discord.ext import tasks
@@ -99,16 +98,15 @@ A plus tard sur le serveur! :wave_tone5:
         channel = self.get_channel(channel_id)
         quote = get_quote()
 
-        await channel.send(f'\t\t***Citation du jour\n\n' + f'**{quote["c"]}**\n\n- {quote["a"]}\n')
+        await channel.send(f'\t\t**Citation du jour\n\n' + f'**{quote["c"]}**\n\n- {quote["a"]}\n')
 
     @daily_inspiration.before_loop
     async def before_inspiration(self):
         hour = 7
         minute = 0
         await self.wait_until_ready()
-        now = datetime.now(tz=pytz.timezone('Europe/Paris'))
-        future = datetime(now.year, now.month, now.day, hour,
-                          minute, tzinfo=pytz.timezone('Europe/Paris'))
+        now = datetime.now()
+        future = datetime(now.year, now.month, now.day, hour, minute)
         if now.hour >= hour and now.minute > minute:
             future += timedelta(days=1)
         await asyncio.sleep((future-now).seconds)
