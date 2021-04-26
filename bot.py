@@ -107,9 +107,9 @@ A plus tard sur le serveur! :wave_tone5:
         # channel_id = the_channel_id
         # channel = self.get_channel(channel_id)
 
-        # or just provide the channel name on the line above
+        # or just provide the channel name on the line below
         channel = discord.utils.get(
-            self.guilds[0].channels, name='channel_name')
+            self.guilds[0].channels, name='general')
         quote = get_quote()
 
         await channel.send(f'\t\t***Quote of the day***\n\n' + quote)
