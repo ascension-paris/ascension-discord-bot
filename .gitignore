@@ -14,3 +14,4 @@ sqlite3.db
 citations.json
 .replit
 lib64
+*.pem
