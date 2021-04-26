@@ -2,8 +2,8 @@ import os
 import requests
 import json
 import asyncio
-import pytz
 import discord
+import random
 from discord.ext import tasks
 from datetime import datetime, timedelta
 
@@ -27,10 +27,7 @@ def update_suggestion(improve):
 
 
 def get_quote():
-    response = requests.get("https://zenquotes.io/api/random")
-    json_data = json.loads(response.text)
-    quote = json_data[0]['q'] + " \n\n \t\t\t-" + json_data[0]['a']
-    return (quote)
+    return random.choice(citations)
 
 
 def parse_citations():
@@ -43,12 +40,6 @@ def parse_citations():
             data["a"] = author.strip().rstrip("\n")
             citations.append(data)
     return citations
-
-
-def generate_citations_json():
-    citations = parse_citations()
-    with open("citations.json", "w") as jsonQuotes:
-        json.dump(citations, jsonQuotes, ensure_ascii=False)
 
 
 class MyClient(discord.Client):
@@ -78,6 +69,7 @@ Pour toute questions ou suggestions d'amélioration n'hesite pas a faire appel a
 
 A plus tard sur le serveur! :wave_tone5:
         """
+
         await member.create_dm()
         await member.dm_channel.send(greeting)
 
@@ -87,46 +79,39 @@ A plus tard sur le serveur! :wave_tone5:
 
         msg = message.content
 
-        if msg.startswith('$new'):
+        if msg == '$new':
             improve = msg.split('$new ', 1)[1]
             update_suggestion(improve)
             await message.channel.send("Votre suggestion d'amélioration a été ajouté.")
 
-        if msg.startswith('$sugg'):
+        if msg == '$sugg':
             suggestion = session.query(Suggestion.id, Suggestion.content).all()
             await message.channel.send(suggestion)
 
-        if msg.startswith('$inspire'):
+        if msg == '$inspire':
             quote = get_quote()
-            await message.channel.send(quote)
+            await message.channel.send(f'*{quote["c"]}*\n\n- {quote["a"]}\n')
 
     @tasks.loop(hours=24)
     async def daily_inspiration(self):
-        # if you have the channel id uncomment the two lines above and provide it
-
-        # channel_id = the_channel_id
-        # channel = self.get_channel(channel_id)
-
-        # or just provide the channel name on the line below
-        channel = discord.utils.get(
-            self.guilds[0].channels, name='general')
+        channel_id = 797417773352747017
+        channel = self.get_channel(channel_id)
         quote = get_quote()
 
-        await channel.send(f'\t\t***Quote of the day***\n\n' + quote)
+        await channel.send(f'\t\t**Citation du jour\n\n' + f'**{quote["c"]}**\n\n- {quote["a"]}\n')
 
     @daily_inspiration.before_loop
     async def before_inspiration(self):
         hour = 7
         minute = 0
         await self.wait_until_ready()
-        now = datetime.now(tz=pytz.timezone('Europe/Paris'))
-        future = datetime(now.year, now.month, now.day, hour,
-                          minute, tzinfo=pytz.timezone('Europe/Paris'))
+        now = datetime.now()
+        future = datetime(now.year, now.month, now.day, hour, minute)
         if now.hour >= hour and now.minute > minute:
             future += timedelta(days=1)
         await asyncio.sleep((future-now).seconds)
 
 
-generate_citations_json()
+citations = parse_citations()
 client = MyClient()
 client.run(TOKEN)
