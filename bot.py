@@ -4,8 +4,11 @@ import json
 import asyncio
 import discord
 import random
+import pytz
 from discord.ext import tasks
 from datetime import datetime, timedelta
+from dateutil import tz
+
 
 from sqlalchemy.orm import Session, sessionmaker
 from dotenv import load_dotenv
@@ -102,11 +105,13 @@ A plus tard sur le serveur! :wave_tone5:
 
     @daily_inspiration.before_loop
     async def before_inspiration(self):
+        paristz = tz.gettz('Europe/Paris')
         hour = 7
         minute = 0
         await self.wait_until_ready()
-        now = datetime.now()
-        future = datetime(now.year, now.month, now.day, hour, minute)
+        now = datetime.utcnow().replace(tzinfo=paristz)
+        future = datetime(now.year, now.month, now.day,
+                          hour, minute, tzinfo=paristz)
         if now.hour >= hour and now.minute > minute:
             future += timedelta(days=1)
         await asyncio.sleep((future-now).seconds)
