@@ -98,7 +98,7 @@ A plus tard sur le serveur! :wave_tone5:
         channel = self.get_channel(channel_id)
         quote = get_quote()
 
-        await channel.send(f'\t\t**Citation du jour\n\n' + f'**{quote["c"]}**\n\n- {quote["a"]}\n')
+        await channel.send(f'\t\t***Citation du jour***\n\n' + f'*{quote["c"]}*\n\n- {quote["a"]}\n')
 
     @daily_inspiration.before_loop
     async def before_inspiration(self):
