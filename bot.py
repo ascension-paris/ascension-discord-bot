@@ -17,6 +17,8 @@ from model import db, Suggestion
 load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
+intents = discord.Intents.default()
+intents.members = True
 
 Session = sessionmaker(bind=db)
 session = Session()
@@ -117,5 +119,5 @@ A plus tard sur le serveur! :wave_tone5:
 
 
 citations = parse_citations()
-client = MyClient()
+client = MyClient(intents=intents)
 client.run(TOKEN)
