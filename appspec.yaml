@@ -12,4 +12,3 @@ hooks:
         - location: scripts/start
         timeout: 300
         runas: ec2-user
-
