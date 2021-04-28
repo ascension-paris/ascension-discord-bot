@@ -67,7 +67,7 @@ Ce serveur est dédiée aux personnes noirs de region parisienne afin de renforc
 
 Tu trouveras des channels dédiés a l'apprentissage des langues, un club de lecture, une conversation privé pour femme/homme. Pour y acceder, va dans le channel <#797855506495438868> et appuis sur les icones correspondants aux roles que tu souhaites avoir.
 
-Nous avons aussi tous les vendredis soir des debats sur des sujets qui nous concernent.
+Je te conseille d'explorer les differents channels notamment le channel <#836182392346771466> pour te presenter.
 
 Pour toute questions ou suggestions d'amélioration n'hesite pas a faire appel aux admins.
 
