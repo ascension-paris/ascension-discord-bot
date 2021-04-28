@@ -1,10 +1,7 @@
 import os
-import requests
-import json
 import asyncio
 import discord
 import random
-import pytz
 from discord.ext import tasks
 from datetime import datetime, timedelta
 from dateutil import tz
@@ -101,7 +98,7 @@ A plus tard sur le serveur! :wave_tone5:
         channel = self.get_channel(channel_id)
         quote = get_quote()
 
-        await channel.send(f'\t\t***Citation du jour***\n\n' + f'*{quote["c"]}*\n\n- {quote["a"]}\n')
+        await channel.send('\t\t***Citation du jour***\n\n' + f'*{quote["c"]}*\n\n- {quote["a"]}\n')
 
     @daily_inspiration.before_loop
     async def before_inspiration(self):
@@ -114,7 +111,7 @@ A plus tard sur le serveur! :wave_tone5:
                           hour, minute, tzinfo=paristz)
         if now.hour >= hour and now.minute > minute:
             future += timedelta(days=1)
-        await asyncio.sleep((future-now).seconds)
+        await asyncio.sleep((future - now).seconds)
 
 
 citations = parse_citations()

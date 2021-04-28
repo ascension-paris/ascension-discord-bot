@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/ec2-user/ascension-discord-bot
+source environment/bin/activate
+
+python3 bot.py

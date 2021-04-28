@@ -1,0 +1,1 @@
+python -m flake8 bot.py model.py --show-source --statistics
