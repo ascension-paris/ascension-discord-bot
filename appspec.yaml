@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
     - source: .
-    - destination: /home/ec2-user/bot
+    - destination: /home/ec2-user/ascension-discord-bot
 hooks:
     AfterInstall:
         - location: scripts/init
