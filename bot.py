@@ -8,7 +8,6 @@ from discord.ext import tasks
 from datetime import datetime, timedelta
 from dateutil import tz
 
-
 from sqlalchemy.orm import Session, sessionmaker
 from dotenv import load_dotenv
 
@@ -40,7 +39,7 @@ def parse_citations():
         for quote in textFile:
             citation, author = quote.split(" | ")
             data = {}
-            data["c"] = citation.strip()
+            data["c"] = citation.strip().replace('\\n', '\n')
             data["a"] = author.strip().rstrip("\n")
             citations.append(data)
     return citations
