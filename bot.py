@@ -17,7 +17,7 @@ load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 intents = discord.Intents.default()
-intents.members = True
+intents.members = Tru
 
 Session = sessionmaker(bind=db)
 session = Session()
